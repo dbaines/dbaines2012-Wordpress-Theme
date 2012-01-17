@@ -1,0 +1,59 @@
+/***********************************
+*
+* CUSTOM LOGIN SCREEN
+* db2012
+*
+***********************************/
+
+/* Import Font */
+@font-face {
+    font-family: 'TitilliumText22LRegular';
+    src: url('../fonts/TitilliumText22L003-webfont.eot?') format('eot'),
+         url('../fonts/TitilliumText22L003-webfont.woff') format('woff'),
+         url('../fonts/TitilliumText22L003-webfont.ttf') format('truetype'),
+         url('../fonts/TitilliumText22L003-webfont.svg#webfontiXtJn0Qu') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {background: #181818 !important; height: 100%;}
+	body {background: url("../images/black-bg.gif") top repeat !important; height: 100%; padding: 0px; font-family: TitilliumText22LRegular, Arial, Helvetica, sans-serif;}
+
+	/* Logo */
+	.login h1 {height: 55px;}
+		.login h1 a {background: none; padding-left: 80px; text-indent: 0; overflow: auto; background: url("../images/logo.png") top left no-repeat; height: auto; line-height: 50px; color: #fff; text-decoration: none; font-weight: normal;}
+		.login h1 a:hover {background-position: 0 -50px; color: #77ccfd;}
+
+	/* Form Container */
+	.login form {border: none; background: url("../images/body-bg.gif") top repeat;
+		-moz-box-shadow:  0 0 5px rgba(0,0,0,0.5);
+		-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+		box-shadow:  0 0 5px rgba(0,0,0,0.5);
+		}
+	
+	/* Labels */
+	.login label {line-height: 22px; font-weight: bold;}
+
+	/* Input Fields */
+	.login form .input {border-radius: 3px; background: #ebead7; box-shadow: 0 1px 0 #fff; border: 1px solid #d3d2c2; padding: 8px; color: #222; 
+		 -webkit-transition: .5s;
+		 -moz-transition: .5s;
+		 -ms-transition: .5s;
+		 transition: .5s;
+		}
+
+	.login form .input:focus, .login form .input:active {background: #f8f7ed; box-shadow: 0 0 15px rgba(0,0,0,0.1); border-color: #c9c7af; outline: none;}
+
+
+	/* Butt-Ons (Chairs) */
+	.login form input[type=submit] {background: #51a1cf; color: #fff; border: 1px solid #78abc5; float: right; border-radius: 3px; box-shadow: 0 1px 0 #fff; padding: 8px;
+		 -webkit-transition: .5s;
+		 -moz-transition: .5s;
+		 -ms-transition: .5s;
+		 transition: .5s;}
+	.login form input[type=submit]:hover,
+	.login form input[type=submit]:focus,
+	.login form input[type=submit]:active {background: #2f79a4; border-color: #245c7c;}
+
+	/* Links */
+	.login #nav a, .login #backtoblog a {text-shadow: none;}
