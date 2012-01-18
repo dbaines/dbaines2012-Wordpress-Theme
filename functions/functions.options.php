@@ -164,12 +164,20 @@ function posk_render_form() {
 			<?php settings_fields('posk_plugin_options'); ?>
 			<?php $options = get_option('db_options'); ?>
 
-			<!-- Start Table -->
-			<table class="form-table">
-				
-				<!-- LAYOUT -->
+			<!-- TABS -->
+			<h2 class="nav-tab-wrapper">
+				<a href="#option-layout" class="nav-tab nav-tab-active" data-id="form-layout">Layout</a>
+				<a href="#option-social" class="nav-tab" data-id="form-social">Social Networking</a>
+				<a href="#option-text" class="nav-tab" data-id="form-text">Text Customisations</a>
+				<a href="#option-meta" class="nav-tab" data-id="form-meta">Meta Tags</a>
+				<a href="#option-other" class="nav-tab" data-id="form-other">Other</a>
+			</h2>
+
+			<!-- LAYOUT -->
+			<table class="form-table" id="form-layout">
+
 				<tr>
-					<th scope="heading" colspan="2"><h2 style="border-bottom: 1px solid #ddd;">Layout</h2></th>
+					<th scope="heading" colspan="2"><h2 style="border-bottom: 1px solid #ddd;">General Layout</h2></th>
 				</tr>
 				<tr>
 					<th scope="row">Wordpress Menu</th>
@@ -180,7 +188,7 @@ function posk_render_form() {
 				<tr>
 					<th scope="row">Google +1 Buttons</th>
 					<td>
-						<label><input name="db_options[plusone]" type="checkbox" value="1" <?php if (isset($options['plusone'])) { checked('1', $options['plusone']); } ?> /> Tick to enable Google +1 Buttons on your full post pages.</label>
+						<label><input name="db_options[plusone]" type="checkbox" value="1" <?php if (isset($options['plusone'])) { checked('1', $options['plusone']); } ?> /> Tick to enable Google +1 Buttons</label>
 					</td>
 				</tr>
 				<tr>
@@ -188,6 +196,31 @@ function posk_render_form() {
 					<td>
 						<label><input name="db_options[plusone_count]" type="checkbox" value="1" <?php if (isset($options['plusone_count'])) { checked('1', $options['plusone_count']); } ?> /> Tick to enable the count bubbles on the +1 buttons. </label>
 					</td>
+				</tr>
+
+				<tr>
+					<th scope="heading" colspan="2"><h2 style="border-bottom: 1px solid #ddd;">Homepage Slider</h2></th>
+				</tr>
+				<tr>
+					<th scope="row">Homepage Slides</th>
+					<td>
+						<input type="text" size="57" name="db_options[homeslides]" value="<?php echo $options['homeslides']; ?>" />
+						<br /><span style="color:#666666;margin-left:2px;">The number of slides to show on your homepage.</span>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">Homepage Slider Post Category ID</th>
+					<td>
+						<input type="text" size="57" name="db_options[slidePostCategory]" value="<?php echo $options['slidePostCategory']; ?>" />
+						<br /><span style="color:#666666;margin-left:2px;">The category ID of the posts to show on the homepage slider.<br />
+						The ID can be found by going to <a href="<?php bloginfo("url"); ?>/wp-admin/edit-tags.php?taxonomy=category" target="_blank">Posts > Categories</a>. Click on the category you want and then look at the URL. The ID is in the URL, ...&tag_ID=<id#>...<br />
+						Tip: You can add multiple IDs by separating them with commas (no spaces) or you can add ALL of your posts by using an asterisk (*)
+						</span>
+					</td>
+				</tr>
+
+				<tr>
+					<th scope="heading" colspan="2"><h2 style="border-bottom: 1px solid #ddd;">Blog</h2></th>
 				</tr>
 				<tr>
 					<th scope="row">Author Info</th>
@@ -219,17 +252,14 @@ function posk_render_form() {
 						<label><input name="db_options[blogrollfriends]" type="checkbox" value="1" <?php if (isset($options['blogrollfriends'])) { checked('1', $options['blogrollfriends']); } ?> /> Tick to replace the 'friends' links at the bottom of the page with the links from the 'blogroll' category of links.</label>
 					</td>
 				</tr>
-				<tr>
-					<th scope="row">Homepage Slides</th>
-					<td>
-						<input type="text" size="57" name="db_options[homeslides]" value="<?php echo $options['homeslides']; ?>" />
-						<br /><span style="color:#666666;margin-left:2px;">The number of slides to show on your homepage.</span>
-					</td>
-				</tr>
 
-				<!-- SOCIAL ICONS -->
+			</table>
+
+			<!-- SOCIAL NETWORKING -->
+			<table class="form-table" id="form-social">
+
 				<tr>
-					<th scope="heading" colspan="2"><h2 style="border-bottom: 1px solid #ddd;">Social Icons (Header)</h2></th>
+					<th scope="heading" colspan="2"><h2 style="border-bottom: 1px solid #ddd;">Header Icons</h2></th>
 				</tr>
 				<tr>
 					<th scope="row">Github</th>
@@ -245,10 +275,11 @@ function posk_render_form() {
 					<th scope="row">Google+</th>
 					<td>
 						<span style="color:#666666;margin-left:2px;">Show:</span>
-						<input name="db_options[si_googeplus]" type="checkbox" value="1" <?php if (isset($options['si_googeplus'])) { checked('1', $options['si_googeplus']); } ?> />
+						<input name="db_options[si_googleplus]" type="checkbox" value="1" <?php if (isset($options['si_googleplus'])) { checked('1', $options['si_googleplus']); } ?> />
 
 						<span style="color:#666666;margin-left:2px;">URL:</span>
-						<input type="text" size="57" name="db_options[si_googeplus_url]" value="<?php echo $options['si_googeplus_url']; ?>" />
+						<input type="text" size="57" name="db_options[si_googleplus_url]" value="<?php echo $options['si_googleplus_url']; ?>" />
+						<br /><span style="color:#666666;margin-left:2px;">Tip: Add "?rel=author" to the end of your profile URL to make your website <a href="http://www.google.com/webmasters/tools/richsnippets" target="_blank">Rich-Snippet compatible</a>.
 					</td>
 				</tr>
 				<tr>
@@ -322,10 +353,74 @@ function posk_render_form() {
 					</td>
 				</tr>
 
-
-				<!-- CUSTOMISATIONS -->
 				<tr>
-					<th scope="heading" colspan="2"><h2 style="border-bottom: 1px solid #ddd;">Text Customisations</h2></th>
+					<th scope="heading" colspan="2"><h2 style="border-bottom: 1px solid #ddd;">Social Data</h2></th>
+				</tr>
+				<tr>
+					<th scope="row">Social Image</th>
+					<td>
+						<input type="text" size="57" name="db_options[social_image]" value="<?php echo $options['social_image']; ?>" />
+						<br /><span style="color:#666666;margin-left:2px;">The path to the image thumbnail (350x350 is a good size) to display on social networks.<br />
+						Note: This is replaced by "featured images" where possible.</span>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">Facebook og:type</th>
+					<td>
+						<input type="text" size="57" name="db_options[fb_ogtype]" value="<?php echo $options['fb_ogtype']; ?>" />
+						<br /><span style="color:#666666;margin-left:2px;">Used for <a href="https://developers.facebook.com/docs/opengraph/" target="_blank">Facebook sharing</a>.</span>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">Facebook fb:admins</th>
+					<td>
+						<input type="text" size="57" name="db_options[fb_admins]" value="<?php echo $options['fb_admins']; ?>" />
+						<br /><span style="color:#666666;margin-left:2px;">Used for <a href="https://developers.facebook.com/docs/opengraph/" target="_blank">Facebook sharing</a>.</span>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">Facebook fb:app_id</th>
+					<td>
+						<input type="text" size="57" name="db_options[fb_appid]" value="<?php echo $options['fb_appid']; ?>" />
+						<br /><span style="color:#666666;margin-left:2px;">Used for <a href="https://developers.facebook.com/docs/opengraph/" target="_blank">Facebook sharing</a>.</span>
+					</td>
+				</tr>
+			</table>
+
+			<!-- META -->
+			<table class="form-table" id="form-meta">
+				<tr>
+					<th scope="heading" colspan="2"><p>If you are using an SEO plugin you can leave these blank.</p></th>
+				</tr>
+				<tr>
+					<th scope="row">Meta Author</th>
+					<td>
+						<input type="text" size="57" name="db_options[meta_author]" value="<?php echo $options['meta_author']; ?>" />
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">Meta Description</th>
+					<td>
+						<input type="text" size="57" name="db_options[meta_description]" value="<?php echo $options['meta_description']; ?>" />
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">Meta Keywords</th>
+					<td>
+						<input type="text" size="57" name="db_options[meta_keywords]" value="<?php echo $options['meta_keywords']; ?>" />
+					</td>
+				</tr>
+			</table>
+
+			<!-- TEXT CUSTOMISATIONS -->
+			<table class="form-table" id="form-text">
+
+				<tr>
+					<th scope="row">Search Placeholder</th>
+					<td>
+						<input type="text" size="57" name="db_options[searchplaceholder]" value="<?php echo $options['searchplaceholder']; ?>" />
+						<br /><span style="color:#666666;margin-left:2px;">The placeholder attribute for the search field.</span>
+					</td>
 				</tr>
 				<tr>
 					<th scope="row">Homepage Introduction</th>
@@ -357,18 +452,11 @@ function posk_render_form() {
 						<br /><span style="color:#666666;margin-left:2px;">This text appears above the comments form.</span>
 					</td>
 				</tr>
-				<tr>
-					<th scope="row">Search Placeholder</th>
-					<td>
-						<input type="text" size="57" name="db_options[searchplaceholder]" value="<?php echo $options['searchplaceholder']; ?>" />
-						<br /><span style="color:#666666;margin-left:2px;">The placeholder attribute for the search field.</span>
-					</td>
-				</tr>
+			</table>
 
-				<!-- OTHER STUFF -->
-				<tr>
-					<th scope="heading" colspan="2"><h2 style="border-bottom: 1px solid #ddd;">Other Stuff</h2></th>
-				</tr>
+			<!-- OTHER STUFF -->
+			<table class="form-table" id="form-other">
+
 				<tr>
 					<th scope="row">Google Analytics UA Code</th>
 					<td>
@@ -379,7 +467,8 @@ function posk_render_form() {
 
 			</table>
 			<p class="submit">
-			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" /><br />
+			<small>Warning: This saves all tabs</small>
 			</p>
 		</form>
 
@@ -388,6 +477,59 @@ function posk_render_form() {
 		</small>
 
 	</div>
+
+	<script>
+		// A quick tab function
+		jQuery(function() {
+			
+			// Function to select a tab
+			function showTab(tabid) {
+				
+				// Hide all tables
+				jQuery(".form-table").hide();
+
+				// Reset active tab
+				jQuery(".nav-tab-wrapper a").removeClass("nav-tab-active");
+
+				// Show relevant table
+				jQuery("#"+tabid).show();
+
+				// Set active tab
+				jQuery(".nav-tab-wrapper a[data-id="+tabid+"]").addClass("nav-tab-active");
+			}
+
+			// Click tab functions
+			jQuery(".nav-tab-wrapper a").click(function(e) {
+
+				// Run show tab on this link right here
+				var tabid = jQuery(this).attr("data-id");
+				showTab(tabid);
+
+				// Stop right there, criminal scum!
+				// e.preventDefault();
+
+			});
+
+			// Run first tab by default
+			showTab("form-layout");
+
+			// Hash sniffing to remember what tab yer on.
+			if (document.location.hash !== "") {
+
+				// We have a hash, let's get it, get it. Minus "#option".
+				var currentHash = document.location.hash.substr(7);
+
+				// Add "form" to currentHash for profit
+				currentHash = "form"+currentHash;
+
+				// Trigger showTab on Hashless Hash 
+				showTab(currentHash);
+
+				// Dance Party!
+			}
+
+		});
+	</script>
 	<?php	
 }
 

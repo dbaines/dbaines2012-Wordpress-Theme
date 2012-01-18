@@ -4,9 +4,9 @@
 
 	<?php // Important Meta Business ?>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
-    <meta name="author" content="David Baines">
-    <meta name="description" content="South Australian Web Developer - Portfolio & Blog">
-    <meta name="keywords" content="David Baines, dbaines, South Australian Web Developer, Art, Adelaide, Para Hills">
+    <meta name="author" content="<?php echo getTemplateOption(meta_author); ?>">
+    <meta name="description" content="<?php echo getTemplateOption(meta_description); ?>">
+    <meta name="keywords" content="<?php echo getTemplateOption(meta_keywords); ?>">
     
     <?php // Mobile Viewport Reset ?>
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
@@ -93,17 +93,22 @@
 			
 		} else {
 	
-	// If there is no post thumbnail, fall back to genetic image
+	// If there is no post thumbnail, fall back to generic image
+	$socialImage = getTemplateOption(social_image);
+	if ( $socialImage == "" ) {
+		$socialImage = get_bloginfo("template_url")."/images/facebook.png";
+	}
 	?>
-    <meta property="og:image" content="<?php bloginfo("template_url"); ?>/images/facebook.png" />
-    <link rel="image_src" href="<?php bloginfo("template_url"); ?>/images/facebook.png" />
+
+    <meta property="og:image" content="<?php echo $socialImage; ?>" />
+    <link rel="image_src" href="<?php echo $socialImage; ?>" />
     <?php } ?>
     
     <?php // Facebook Stuff ?>
-    <meta property="og:type" content="website" /> 
-    <meta property="og:site_name" content="dBaines.com" /> 
-    <meta property="fb:admins" content="537643353" /> 
-    <meta property="fb:app_id" content="169017283147625" /> 
+    <meta property="og:type" content="<?php echo getTemplateOption(fb_ogtype); ?>" /> 
+    <meta property="og:site_name" content="<?php bloginfo("title"); ?>" /> 
+    <meta property="fb:admins" content="<?php echo getTemplateOption(fb_admins); ?>" /> 
+    <meta property="fb:app_id" content="<?php echo getTemplateOption(fb_appid); ?>" /> 
     
     <?php // Wordpress Stuff ?>
     <?php if ( is_singular() && get_option( 'thread_comments' ) ) {wp_enqueue_script( 'comment-reply' );} wp_head(); ?>

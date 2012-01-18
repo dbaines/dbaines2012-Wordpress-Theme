@@ -49,7 +49,10 @@ $s.="jpg";
 	var gplus_count = <?php echo (getTemplateOption(plusone_count) == true ? "true" : "false"); ?>;
 </script>
 
-<?php // Google +1 - http://www.google.com/webmasters/+1/button/ ?>
+<?php 
+// Google +1 - http://www.google.com/webmasters/+1/button/
+// Only include this script if googeplus buttons have been enabled in theme options, yo.
+if (getTemplateOption(plusone)) : ?>
 <script>
   (function() {
     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
@@ -57,6 +60,7 @@ $s.="jpg";
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
   })();
 </script>
+<?php endif; ?>
 
 <?php // Google Analytics UA-21857677-1 ?>
 <?php $gaCode = (getTemplateOption(googleua) ? getTemplateOption(googleua) : "UA-XXXXXXXX-X"); ?>

@@ -1,35 +1,32 @@
 /*
 Theme Name: dBaines 2012
-Theme URI: 
+Theme URI: http://dbaines.com/blog/archive/dbaines2012-wordpress-theme-on-github
 Description: The 2012 theme for dBaines.com
 Author: David Baines
 Author URI: http://dbaines.com
-Version: 1.0
+Version: 1.1
 	
 	Future Features
-	* 
+	* Figure out a way to make the social icons sortable
+	* Make "already logged in" comment form prettier
+
+	1.1 - 2012-01-18
+	* Fixed missing theme option: slider category. Specifies which category of posts to show on the homepage slider
+	* Fixed google plus social icon options
+	* Redesigned theme options page to use tabs to make it easier to use
+	* Wiki now available on github project page
+	* New theme options:
+		* Social Image (/images/facebook.png)
+		* Facebook og:type
+		* Facebook fb:admins
+		* Facebook fb:app_id
+		* Meta Author
+		* Meta Description
+		* Meta Keywords
+	* Google +1 script now only loads if +1 has been enabled in theme options.
 	
 	1.0 - 2012-01-17
-	* Updated look and feel for 2012
-	* Redesigned Slider
-		* Titles and categories have been brought in
-		* CSS3 animations on hover, fallback to always showing for unsupported browsers
-		* Bullet Navigation
-		* Posts that in the "Tutorials" category included in slider
-	* New Theme Options
-		* Redeveloped and based on [Plugin Options Starter Kit](http://wordpress.org/extend/plugins/plugin-options-starter-kit/)
-		* Show/Hide author information at the bottom of posts
-		* Number of slides on the homepage
-		* Show "Listening To" on blog posts
-		* WYSIWYG eidtor fot:
-			* Homepage Introduction
-			* Comments Introduction
-			* Footer text
-		* Show/Hide social links in header and customise URLs
-		* Search field placeholder attribute
-	* Styling for paged posts
-	* Removed some unnecessary "type" attributes on links and scripts
-	* Revamped login screen to match changes for Wordpress 3.3.x
+
 */
 
 

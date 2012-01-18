@@ -77,7 +77,24 @@ If you are the creator of any of these resources and have issue with me redistri
 
 ## Version History
 
+### 1.1 - 2012-01-18
+
+* Fixed missing theme option: slider category. Specifies which category of posts to show on the homepage slider
+* Fixed google plus social icon options
+* Redesigned theme options page to use tabs to make it easier to use
+* Wiki now available on github project page
+* New theme options:
+	* Social Image (/images/facebook.png)
+	* Facebook og:type
+	* Facebook fb:admins
+	* Facebook fb:app_id
+	* Meta Author
+	* Meta Description
+	* Meta Keywords
+* Google +1 script now only loads if +1 has been enabled in theme options.
+
 ### 1.0 - 2012-01-17
+
 * Initial Release
 * Changes from dbaines2011-Wordpress-Theme:
 	* Updated look and feel for 2012
