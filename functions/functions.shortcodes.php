@@ -127,8 +127,6 @@ add_shortcode('floatRight', 'floatRight');
 Shortcode: Codebox
 Usage [codebox lang="php/javascript/html/etc" line="1" caption="description text"]content[/codebox]
 *************************************************/
-// Want to use Google Code Prettify instead of Geshi?
-#include("functions.shortcodes.prettify.php");
 include('functions.shortcodes.geshi.php');
 
 /*************************************************

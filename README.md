@@ -41,7 +41,6 @@ It should be noted that this theme does not (and will not) support old browsers.
 
 ## Recommended Wordpress Plugins:
 
-* Additional Image Sizes - Provides image sizes for homepage slider, website slider, gallery thumbnail, post thumbnail, as well as the default post sizes.
 * Advanced Excerpt - HTMLified Excerpts for searches and tutorial posts
 * Custom Field Template - Very handy template to set up custom fields for different custom post types. 
 * Post Types Order - Quickly and easily re-arrange your custom post types - in my case portfolio entries.
@@ -74,8 +73,44 @@ It should be noted that this theme does not (and will not) support old browsers.
 
 If you are the creator of any of these resources and have issue with me redistributing them, please let me know. I'll be more than happy to remove your material from this project.
 
-
 ## Version History
+
+### 2.0 - 2012-04-01
+
+* Added buttons to TinyMCE editor for shortcodes - /functions/functions.tinymce.php
+	* Download Button - [download]
+	* Demo/Download Buttons - [demodownload]
+	* Message Box - [info], [important] and [error]
+	* Highlight - [hilight]
+	* Code - [code]
+	* Codebox - [codebox] - doesn't quite work properly yet :(
+	* Float Right - [fright]
+
+* New Shortcode + TinyMCE Buton:
+	* Divider - three styles:
+		* HR - just a line
+		* Back To Top - a line with a "back to top" button
+		* Clear - this replaces [clear] with an invisible divider
+
+* New theme options:
+	* Social Icons are now sortable using jQuery UI Sortable, code is undesirably repeated, need to re-think default order setting.
+	* Use widgets for the subsection areas
+
+* Changed SudoSlider to FlexSlider for a responsive content slider
+* Improved responsive and mobile media queries
+* Added small and large icons for custom post types in Wordpress administration - bottom of functions/functions.post-types.php
+* Added custom post types to "Right Now" dashboard
+* Changed slider/colourbox arrows to use CSS3 transitions instead of jQuery animation
+* Moved custom image sizes in to functions file to avoid the reliance on the Aditional Image Sizes plugin
+* Laid the groundwork for moving custom post type fields in to a functions file (functions/functions.post-type-fields.php) to avoid the reliance on the Custom Field Template plugin
+* Fixed thumbnail sizes on search results
+* Removed change log from style.css to reduce page load a bit
+* Fixed the [col] shortcode description in functions.shortcodes.php
+* Cleaned up the <head> for a nicer source code view. Empty lines above and below php comments stop the wierd spacing behaviour, yet look floaty. A fair compromise. 
+* Fixed some &s that should be &amp;s in the rss feed links in the <head>
+* Fixed contact me link to </a></li> instead of </a></a>
+* Added human_time_diff times for post dates (posted x days ago) to header.php, loop.php, search.php
+* Smushed a whole bunch of images
 
 ### 1.1 - 2012-01-18
 

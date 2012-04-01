@@ -135,7 +135,7 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
             <?php }	?>
         
         	<div class="websiteSliderContainer">
-        	<ul class="websiteSlider">
+        	<ul class="websiteSlider slides">
 				<?php 
 					$heroID = get_post_thumbnail_id($post->ID);
 					$heroImage =  wp_get_attachment_image_src( $heroID, "Small Slider");
@@ -231,7 +231,6 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
 
 <?php /* Tutorial Posts */ ?>
 	<?php elseif (in_category("tutorials")) : ?>
-
  
 		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
         	<span class="category-link"><?php echo get_the_category_list( ' ' ); ?></span>
@@ -239,6 +238,7 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
 
 			<div class="entry-meta">
 				Posted on <time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time>
+				<small>(<?php echo human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ago'; ?>)</small>
 			</div><!-- .entry-meta -->
             
             <div class="entry-content">
@@ -299,6 +299,7 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
 
 			<div class="entry-meta">
 				Posted on <time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time>
+				<small>(<?php echo human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ago'; ?>)</small>
 			</div><!-- .entry-meta -->
             
             <div class="entry-content">
@@ -353,6 +354,7 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
 
 			<div class="entry-meta">
 				Posted on <time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time>
+				<small>(<?php echo human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ago'; ?>)</small>
 			</div><!-- .entry-meta -->
 
 			<div class="entry-summary">

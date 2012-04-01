@@ -120,3 +120,42 @@ function SearchFilter($query) {
 }
 // This filter will jump into the loop and arrange our results before they're returned
 add_filter('pre_get_posts','SearchFilter');
+
+/***********************************
+*
+* CUSTOM ICON CSS
+* db2011
+*
+***********************************/
+add_action('admin_head', 'custom_posttype_css');
+function custom_posttype_css() { ?>
+  <style>
+    /* Sprites */
+    #adminmenu #menu-posts-websites .wp-menu-image,
+    #adminmenu #menu-posts-artwork .wp-menu-image,
+    #adminmenu #menu-posts-motion .wp-menu-image,
+    #icon-edit.icon32-posts-websites, #icon-post.icon32-posts-websites,
+    #icon-edit.icon32-posts-motion, #icon-post.icon32-posts-motion,
+    #icon-edit.icon32-posts-artwork, #icon-post.icon32-posts-artwork {background: url("<?php echo get_bloginfo("template_url"); ?>/icons/post-type-icons.png") -4px -3px no-repeat;}
+
+    /* Normal States */
+    #adminmenu #menu-posts-websites .wp-menu-image {background-position: -4px -3px;}
+    #adminmenu #menu-posts-artwork .wp-menu-image {background-position: -4px -59px;}
+    #adminmenu #menu-posts-motion .wp-menu-image {background-position: -4px -31px;}
+
+    /* Hover/Active States */
+    #adminmenu #menu-posts-websites:hover .wp-menu-image,
+    #adminmenu #menu-posts-websites.wp-has-current-submenu .wp-menu-image {background-position: -30px -3px;}
+    #adminmenu #menu-posts-artwork:hover .wp-menu-image,
+    #adminmenu #menu-posts-artwork.wp-has-current-submenu .wp-menu-image {background-position: -30px -59px;}
+    #adminmenu #menu-posts-motion:hover .wp-menu-image,
+    #adminmenu #menu-posts-motion.wp-has-current-submenu .wp-menu-image {background-position: -30px -31px;}
+
+    /* Large Icons */
+    #icon-edit.icon32-posts-websites, #icon-post.icon32-posts-websites {background-position: -71px -5px;}
+    #icon-edit.icon32-posts-artwork, #icon-post.icon32-posts-artwork {background-position: -71px -44px;}
+    #icon-edit.icon32-posts-motion, #icon-post.icon32-posts-motion {background-position: -71px -88px;}
+
+  </style>
+  <?php
+}

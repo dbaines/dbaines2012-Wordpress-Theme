@@ -2,20 +2,20 @@
 <html <?php language_attributes(); ?> class="no-js">
 <head>
 
-	<?php // Important Meta Business ?>
-	<meta charset="<?php bloginfo( 'charset' ); ?>" />
-    <meta name="author" content="<?php echo getTemplateOption(meta_author); ?>">
-    <meta name="description" content="<?php echo getTemplateOption(meta_description); ?>">
-    <meta name="keywords" content="<?php echo getTemplateOption(meta_keywords); ?>">
-    
-    <?php // Mobile Viewport Reset ?>
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+	<?php // Important meta tags ?>
 
-	<?php // Insano Title of +10 Insanity ?>
-    <title><?php
-        global $page, $paged;
-        wp_title( '|', true, 'right' );
-    
+	<meta charset="<?php bloginfo( 'charset' ); ?>" />
+	<meta name="author" content="<?php echo getTemplateOption(meta_author); ?>">
+	<meta name="description" content="<?php echo getTemplateOption(meta_description); ?>">
+	<meta name="keywords" content="<?php echo getTemplateOption(meta_keywords); ?>">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+
+	<?php // Wordpress Title ?>
+
+	<title><?php
+	    global $page, $paged;
+	    wp_title( '|', true, 'right' );
+
 		// Custom Post Types in Title
 		$post_type = get_post_type(get_the_ID());
 		if($post_type == "artwork") {
@@ -25,55 +25,55 @@
 		}else if($post_type == "websites") {
 			echo "Websites | ";
 		}
-	
-        // Add the blog name.
-        bloginfo( 'name' );
-    
-        // Add the blog description for the home/front page.
-        $site_description = get_bloginfo( 'description', 'display' );
-        if ( $site_description && ( is_home() || is_front_page() ) )
-            echo " | $site_description";
-    
-        // Add a page number if necessary:
-        if ( $paged >= 2 || $page >= 2 )
-            echo ' | ' . sprintf( __( 'Page %s', 'twentyten' ), max( $paged, $page ) );
-    
-        ?>
-    </title>
-    
-	<?php // Modernizr & Flowplayer in Header, everything else in footer ?>
-    <script src="<?php bloginfo('template_url'); ?>/js/modernizr.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/flowplayer-3.2.6.min.js"></script>
 
-	<?php // Links and Stylesheets and What not - Oh my! ?>    
-    <link rel="profile" href="http://gmpg.org/xfn/11" />
-    <link rel="stylesheet" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
-    
-    <?php // Icons ?>
+	    // Add the blog name.
+	    bloginfo( 'name' );
+
+	    // Add the blog description for the home/front page.
+	    $site_description = get_bloginfo( 'description', 'display' );
+	    if ( $site_description && ( is_home() || is_front_page() ) )
+	        echo " | $site_description";
+
+	    // Add a page number if necessary:
+	    if ( $paged >= 2 || $page >= 2 )
+	        echo ' | ' . sprintf( __( 'Page %s', 'twentyten' ), max( $paged, $page ) );
+
+	    ?>
+	</title>
+
+	<?php // Links and Stylesheets ?>
+
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="stylesheet" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 	<link rel="shortcut icon" href="/favicon.ico" />
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    
-    <?php // Pingbacks ?>
-    <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-    
-    <?php // Feeds ?>
+	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+
+	<?php // Important JS files in header, rest at bottom of page ?>
+
+	<script src="<?php bloginfo('template_url'); ?>/js/modernizr.js"></script>
+	<script src="<?php bloginfo('template_url'); ?>/js/flowplayer-3.2.6.min.js"></script>
+
+	<?php // Feeds ?>
+
 	<link href="<?php bloginfo('url'); ?>/?post_type=post&amp;feed=rss2" rel="alternate" type="application/atom+xml" title="dBaines.com - Blog Posts" />
-	<link href="<?php bloginfo('url'); ?>/?post_type=portfolio&feed=rss2" rel="alternate" type="application/atom+xml" title="dBaines.com - Portfolio Posts" />
-	<link href="<?php bloginfo('url'); ?>/?post_type=tutorials&feed=rss2" rel="alternate" type="application/atom+xml" title="dBaines.com - Tutorial Posts Only" />
-	<link href="<?php bloginfo('url'); ?>/?post_type=all&feed=rss2" rel="alternate" type="application/atom+xml" title="dBaines.com - All Posts" />
+	<link href="<?php bloginfo('url'); ?>/?post_type=portfolio&amp;feed=rss2" rel="alternate" type="application/atom+xml" title="dBaines.com - Portfolio Posts" />
+	<link href="<?php bloginfo('url'); ?>/?post_type=tutorials&amp;feed=rss2" rel="alternate" type="application/atom+xml" title="dBaines.com - Tutorial Posts Only" />
+	<link href="<?php bloginfo('url'); ?>/?post_type=all&amp;feed=rss2" rel="alternate" type="application/atom+xml" title="dBaines.com - All Posts" />
 	<link href="<?php bloginfo('comments_rss2_url'); ?>" rel="alternate" type="application/atom+xml" title="dBaines.com - Blog Comments" />
-    
-    <?php 
+
+	<?php // Dynamically-generated social networking stuff™ ?>
+
+	<?php 
 	// Social Share Thumbnails
 	// Uses a post-thumbnail if available, otherwise uses a generic image
-		
 		// Get Any Post Thumbnails (Tutorials/Motion/Websites)
 		if (is_single() && has_post_thumbnail()) {
 			$FullImage = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail');
 			$LargeImageLink = $FullImage[0];
 			
 			// Facebook Thumbnail
-			echo '<meta property="og:image" content="'.$LargeImageLink.'" />';
+			print '<meta property="og:image" content="'.$LargeImageLink.'" />';
 			
 			// Non-Facebook Thumbnail
 			echo '<link rel="image_src" href="'. $LargeImageLink .'" />';
@@ -86,13 +86,13 @@
 			$LargeImageLink = wp_get_attachment_url( $imageid );
 			
 			// Facebook Image
-		    echo '<meta property="og:image" content="'.$LargeImageLink.'" />';
+		 	echo '<meta property="og:image" content="'.$LargeImageLink.'" />';
 			
 			// Non-Facebook Image
 			echo '<link rel="image_src" href="'. $LargeImageLink .'" />';
 			
 		} else {
-	
+
 	// If there is no post thumbnail, fall back to generic image
 	$socialImage = getTemplateOption(social_image);
 	if ( $socialImage == "" ) {
@@ -100,18 +100,21 @@
 	}
 	?>
 
-    <meta property="og:image" content="<?php echo $socialImage; ?>" />
-    <link rel="image_src" href="<?php echo $socialImage; ?>" />
-    <?php } ?>
-    
-    <?php // Facebook Stuff ?>
-    <meta property="og:type" content="<?php echo getTemplateOption(fb_ogtype); ?>" /> 
-    <meta property="og:site_name" content="<?php bloginfo("title"); ?>" /> 
-    <meta property="fb:admins" content="<?php echo getTemplateOption(fb_admins); ?>" /> 
-    <meta property="fb:app_id" content="<?php echo getTemplateOption(fb_appid); ?>" /> 
-    
-    <?php // Wordpress Stuff ?>
-    <?php if ( is_singular() && get_option( 'thread_comments' ) ) {wp_enqueue_script( 'comment-reply' );} wp_head(); ?>
+	<meta property="og:image" content="<?php echo $socialImage; ?>" />
+	<link rel="image_src" href="<?php echo $socialImage; ?>" />
+	<?php } ?>
+
+	<?php // Facebook Stuff ?>
+
+	<meta property="og:type" content="<?php echo getTemplateOption(fb_ogtype); ?>" /> 
+	<meta property="og:site_name" content="<?php bloginfo("title"); ?>" /> 
+	<meta property="fb:admins" content="<?php echo getTemplateOption(fb_admins); ?>" /> 
+	<meta property="fb:app_id" content="<?php echo getTemplateOption(fb_appid); ?>" /> 
+
+	<!-- Wordpress Stuff -->
+	<?php if ( is_singular() && get_option( 'thread_comments' ) ) {wp_enqueue_script( 'comment-reply' );} wp_head(); ?>
+
+	<!-- /Wordpress Stuff -->
 </head>
 
 <body <?php body_class(); ?>>
@@ -122,36 +125,41 @@
         	<a href="<?php bloginfo('url'); ?>" id="logo" class="ir" title="dBaines.com" accesskey="1">dBaines.com</a>
         	<h2><a href="<?php bloginfo('url'); ?>" rel="home" title="Home">David Baines</a></h2>
         	<div class="socialLinks">
-        		<ul>
 
-        			<?php if (getTemplateOption(si_github)) : ?>
-					<li><a href="<?php echo getTemplateOption(si_github_url); ?>" class="github" rel="me">GitHub</a></li>
-					<?php endif; ?>
-					<?php if (getTemplateOption(si_googleplus)) : ?>
-			        <li><a href="<?php echo getTemplateOption(si_googleplus_url); ?>" class="gplus" rel="me author">Google+</a></li>
-			        <?php endif; ?>
-					<?php if (getTemplateOption(si_forrst)) : ?>
-			        <li><a href="<?php echo getTemplateOption(si_forrst_url); ?>" class="forrst" rel="me">Forrst</a></li>
-			        <?php endif; ?>
-					<?php if (getTemplateOption(si_reddit)) : ?>
-			        <li><a href="<?php echo getTemplateOption(si_reddit_url); ?>" class="reddit" rel="me">Reddit</a></li>
-			        <?php endif; ?>
-					<?php if (getTemplateOption(si_steam)) : ?>
-			        <li><a href="<?php echo getTemplateOption(si_steam_url); ?>" class="steam" rel="me">SteamCommunity</a></li>
-			        <?php endif; ?>
-					<?php if (getTemplateOption(si_lastfm)) : ?>
-			        <li><a href="<?php echo getTemplateOption(si_lastfm_url); ?>" class="lastfm" rel="me">Last.fm</a></li>
-			        <?php endif; ?>
-					<?php if (getTemplateOption(si_twitter)) : ?>
-			        <li><a href="<?php echo getTemplateOption(si_twitter_url); ?>" class="twitter" rel="me">Twitter</a></li>
-			        <?php endif; ?>
-					<?php if (getTemplateOption(si_facebook)) : ?>
-					<li><a href="<?php echo getTemplateOption(si_facebook_url); ?>" class="facebook" rel="me" title="Facebook Profile">Facebook</a></li>
-					<?php endif; ?>
-					<?php if (getTemplateOption(si_linkedin)) : ?>
-			        <li><a href="<?php echo getTemplateOption(si_linkedin_url); ?>" class="linkedin" rel="me">Linkedin</a></li>
-			        <?php endif; ?>
-			    </ul>
+					<?php
+						$dbSISortOrder = getTemplateOption(social_icon_order);
+						if ( !isset($dbSISortOrder) ) {
+							$iconOrder = array(
+								'sortable_github',
+								'sortable_gplus',
+								'sortable_forrst',
+								'sortable_reddit',
+								'sortable_steamcommunity',
+								'sortable_lastfm',
+								'sortable_twitter',
+								'sortable_facebook',
+								'sortable_linkedin'
+							);
+						} else {
+							$iconOrder = explode(",",$dbSISortOrder);;
+						}
+
+						// Run through each template option
+						echo "<ul>";
+						foreach ($iconOrder as $icon) {
+							$cleanName = substr($icon,9);
+							$optionName = "si_".$cleanName;
+							$optionURL = getTemplateOption($optionName."_url");
+							if(getTemplateOption($optionName)) :
+								if($cleanName == "googleplus") :
+									echo "<li><a href='".$optionURL."' class='gplus' rel='me author'>".$cleanName."</a></li>";
+								else:
+									echo "<li><a href='".$optionURL."' class='".$cleanName."' rel='me'>".$cleanName."</a></li>";
+								endif;
+							endif;
+						}
+						echo "</ul>";
+					?>
         	</div>
         	<div class="clear"></div>
 
@@ -205,7 +213,7 @@
 					if(is_page('about') or is_page('my computer')) {echo "class='current'";} 
 					?>>about</a>
                     <ul>
-                    	<li><a href="<?php bloginfo('url'); ?>/about#contact" accesskey="9">contact me</a></a>
+                    	<li><a href="<?php bloginfo('url'); ?>/about#contact" accesskey="9">contact me</a></li>
                     </ul>
                 </li>
                 <li><a accesskey="3" href="<?php bloginfo('url'); ?>/blog" <?php 
@@ -308,7 +316,7 @@
             </h1>
             <?php 
 				if(is_single()) { ?>
-            		<h3>Posted on <time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time>
+            		<h3>Posted on <time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time> <small>(<?php echo human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ago'; ?>)</small>
 						 <?php // Show +1 Button if turned on
                         if ( getTemplateOption(plusone) ) { ?>
                         | <g:plusone size="small" <?php if(!getTemplateOption(plusone_count)) { ?>count="false"<?php } ?> href="<?php the_permalink(); ?>"></g:plusone>
@@ -330,4 +338,4 @@
 </header>
 <section id="body">
 	<div id="body-top">
-	<div class="wrapper">
+	<div class="wrapper bodyWrapper">

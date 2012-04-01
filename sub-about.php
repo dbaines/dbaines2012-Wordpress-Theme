@@ -1,5 +1,10 @@
 
             	<div id="subsection-column1">
+
+                    <?php if (getTemplateOption('useWidgets')) : ?>
+                        <?php dynamic_sidebar( 'about-column-1' ); ?>
+                    <?php else : ?>
+
 					<h2>About Me</h2>
                     <ul class="sub-about-me">
 						<li><strong>Born</strong>: 1985</li>
@@ -19,10 +24,17 @@
                         <li><a class="about-tv" href="http://www.tv.com/users/dbaines/shows.php">Tv.com</a></li>
                         <li><a class="about-xbox" href="http://profile.mygamercard.net/dbaines85">Xbox360</a></li>
                         <li><a class="about-co-opp" href="http://co-opp.net/component/community/profile?userid=413">Co-Opp</a></li>
-
                     </ul>
+
+                    <?php endif; ?>
+
                 </div>
                 <div id="subsection-column2">
+
+                    <?php if (getTemplateOption('useWidgets')) : ?>
+                        <?php dynamic_sidebar( 'about-column-2' ); ?>
+                    <?php else : ?>
+
                 	<h2>Languages</h2>
                     <ul class="sub-about-lang">
                         <li>HTML5/CSS3</li>
@@ -42,8 +54,19 @@
                         <li>ZenPhoto</li>
                         <li>ZenCart</li>
                     </ul>
+
+                    <?php endif; ?>
+
                 </div>
 				<div id="subsection-column3">
+
+                    <?php if (getTemplateOption('useWidgets')) : ?>
+                        <?php dynamic_sidebar( 'about-column-3' ); ?>
+                    <?php else : ?>
+
 					<?php include(TEMPLATEPATH.'/subsections/lastfm.php'); ?>
 					<?php include(TEMPLATEPATH.'/subsections/friends.php'); ?>
+
+                    <?php endif; ?>
+
 				</div>

@@ -272,49 +272,6 @@ function twentyten_remove_gallery_css( $css ) {
 }
 
 /**
- * Register widgetized areas, including two sidebars and four widget-ready columns in the footer.
- *
- * To override twentyten_widgets_init() in a child theme, remove the action hook and add your own
- * function tied to the init hook.
- *
- * @since Twenty Ten 1.0
- * @uses register_sidebar
- */
-function twentyten_widgets_init() {
-	
-	register_sidebar( array(
-		'name' => __( 'Recent Posts', 'twentyten' ),
-		'id' => 'recentposts-widget-area',
-		'description' => __( 'Recent Posts', 'twentyten' ),
-		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
-		'after_widget' => '</li>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'Categories', 'twentyten' ),
-		'id' => 'categories-widget-area',
-		'description' => __( 'Categories', 'twentyten' ),
-		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
-		'after_widget' => '</li>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'Recent Comments', 'twentyten' ),
-		'id' => 'recentcomments-widget-area',
-		'description' => __( 'Recent Comments', 'twentyten' ),
-		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
-		'after_widget' => '</li>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	
-}
-/** Register sidebars by running twentyten_widgets_init() on the widgets_init hook. */
-add_action( 'widgets_init', 'twentyten_widgets_init' );
-
-/**
  * Removes the default styles that are packaged with the Recent Comments widget.
  *
  * To override this in a child theme, remove the filter and optionally add your own

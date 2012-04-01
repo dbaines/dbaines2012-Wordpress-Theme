@@ -139,7 +139,7 @@ function posk_init(){
 
 // Add menu page
 function posk_add_options_page() {
-	add_submenu_page('themes.php', 'Template Options', 'Template Options', 'manage_options', 'theme-options', 'posk_render_form');
+	add_submenu_page('themes.php', 'Template Options', 'Theme Options', 'manage_options', 'theme-options', 'posk_render_form');
 }
 
 // ------------------------------------------------------------------------------
@@ -195,6 +195,12 @@ function posk_render_form() {
 					<th scope="row">Google +1 Count</th>
 					<td>
 						<label><input name="db_options[plusone_count]" type="checkbox" value="1" <?php if (isset($options['plusone_count'])) { checked('1', $options['plusone_count']); } ?> /> Tick to enable the count bubbles on the +1 buttons. </label>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">Use Widgets</th>
+					<td>
+						<label><input name="db_options[useWidgets]" type="checkbox" value="1" <?php if (isset($options['useWidgets'])) { checked('1', $options['useWidgets']); } ?> /> Tick to enable widget areas in the lower area. </label>
 					</td>
 				</tr>
 
@@ -256,102 +262,61 @@ function posk_render_form() {
 			</table>
 
 			<!-- SOCIAL NETWORKING -->
+			<?php // Adding jquery-ui-sortable to scripts, making table sortable ?>
+			<?php 
+				wp_enqueue_script('jquery-ui-sortable'); 
+			?>
+			<script>
+				jQuery(function(){
+					jQuery( ".sortable").sortable({
+						handle: "th",
+						update: function() {
+							// When updating the order, send the new order to the hidden input, ready for database insertion
+							var socialTableArray = jQuery("#form-social tbody.sortable").sortable('toArray');
+							jQuery("#social_icon_order_input").val(socialTableArray);
+						}
+					});
+				});
+			</script>
+			<style>
+				.sortable th {cursor: pointer; padding-left: 25px; background: url("<?php echo get_bloginfo('template_url'); ?>/images/sortable.gif") 14px 14px no-repeat;}
+			</style>
+			<?php // Hidden input type to hold the sort order ?>
+			<input type="hidden" name="db_options[social_icon_order]" id="social_icon_order_input" />
+
 			<table class="form-table" id="form-social">
+				<thead>
+					<tr>
+						<th scope="heading" colspan="2"><h2 style="border-bottom: 1px solid #ddd;">Header Icons</h2></th>
+					</tr>
+				</thead>
+				<tbody class="sortable">
 
-				<tr>
-					<th scope="heading" colspan="2"><h2 style="border-bottom: 1px solid #ddd;">Header Icons</h2></th>
-				</tr>
-				<tr>
-					<th scope="row">Github</th>
-					<td>
-						<span style="color:#666666;margin-left:2px;">Show:</span>
-						<input name="db_options[si_github]" type="checkbox" value="1" <?php if (isset($options['si_github'])) { checked('1', $options['si_github']); } ?> />
-
-						<span style="color:#666666;margin-left:2px;">URL:</span>
-						<input type="text" size="57" name="db_options[si_github_url]" value="<?php echo $options['si_github_url']; ?>" />
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">Google+</th>
-					<td>
-						<span style="color:#666666;margin-left:2px;">Show:</span>
-						<input name="db_options[si_googleplus]" type="checkbox" value="1" <?php if (isset($options['si_googleplus'])) { checked('1', $options['si_googleplus']); } ?> />
-
-						<span style="color:#666666;margin-left:2px;">URL:</span>
-						<input type="text" size="57" name="db_options[si_googleplus_url]" value="<?php echo $options['si_googleplus_url']; ?>" />
-						<br /><span style="color:#666666;margin-left:2px;">Tip: Add "?rel=author" to the end of your profile URL to make your website <a href="http://www.google.com/webmasters/tools/richsnippets" target="_blank">Rich-Snippet compatible</a>.
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">Forrst</th>
-					<td>
-						<span style="color:#666666;margin-left:2px;">Show:</span>
-						<input name="db_options[si_forrst]" type="checkbox" value="1" <?php if (isset($options['si_forrst'])) { checked('1', $options['si_forrst']); } ?> />
-
-						<span style="color:#666666;margin-left:2px;">URL:</span>
-						<input type="text" size="57" name="db_options[si_forrst_url]" value="<?php echo $options['si_forrst_url']; ?>" />
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">Reddit</th>
-					<td>
-						<span style="color:#666666;margin-left:2px;">Show:</span>
-						<input name="db_options[si_reddit]" type="checkbox" value="1" <?php if (isset($options['si_reddit'])) { checked('1', $options['si_reddit']); } ?> />
-
-						<span style="color:#666666;margin-left:2px;">URL:</span>
-						<input type="text" size="57" name="db_options[si_reddit_url]" value="<?php echo $options['si_reddit_url']; ?>" />
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">Steam Community</th>
-					<td>
-						<span style="color:#666666;margin-left:2px;">Show:</span>
-						<input name="db_options[si_steam]" type="checkbox" value="1" <?php if (isset($options['si_steam'])) { checked('1', $options['si_steam']); } ?> />
-
-						<span style="color:#666666;margin-left:2px;">URL:</span>
-						<input type="text" size="57" name="db_options[si_steam_url]" value="<?php echo $options['si_steam_url']; ?>" />
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">Last.fm (AudioScrobbler)</th>
-					<td>
-						<span style="color:#666666;margin-left:2px;">Show:</span>
-						<input name="db_options[si_lastfm]" type="checkbox" value="1" <?php if (isset($options['si_lastfm'])) { checked('1', $options['si_lastfm']); } ?> />
-
-						<span style="color:#666666;margin-left:2px;">URL:</span>
-						<input type="text" size="57" name="db_options[si_lastfm_url]" value="<?php echo $options['si_lastfm_url']; ?>" />
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">Twitter</th>
-					<td>
-						<span style="color:#666666;margin-left:2px;">Show:</span>
-						<input name="db_options[si_twitter]" type="checkbox" value="1" <?php if (isset($options['si_twitter'])) { checked('1', $options['si_twitter']); } ?> />
-
-						<span style="color:#666666;margin-left:2px;">URL:</span>
-						<input type="text" size="57" name="db_options[si_twitter_url]" value="<?php echo $options['si_twitter_url']; ?>" />
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">Facebook</th>
-					<td>
-						<span style="color:#666666;margin-left:2px;">Show:</span>
-						<input name="db_options[si_facebook]" type="checkbox" value="1" <?php if (isset($options['si_facebook'])) { checked('1', $options['si_facebook']); } ?> />
-
-						<span style="color:#666666;margin-left:2px;">URL:</span>
-						<input type="text" size="57" name="db_options[si_facebook_url]" value="<?php echo $options['si_facebook_url']; ?>" />
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">LinkedIn</th>
-					<td>
-						<span style="color:#666666;margin-left:2px;">Show:</span>
-						<input name="db_options[si_linkedin]" type="checkbox" value="1" <?php if (isset($options['si_linkedin'])) { checked('1', $options['si_linkedin']); } ?> />
-
-						<span style="color:#666666;margin-left:2px;">URL:</span>
-						<input type="text" size="57" name="db_options[si_linkedin_url]" value="<?php echo $options['si_linkedin_url']; ?>" />
-					</td>
-				</tr>
+					<?php
+						// Set up default sort order if none ain't done set up already
+						if ( !isset($otions['social_icon_order']) ) {
+							$iconOrder = array(
+								'sortable_github',
+								'sortable_googleplus',
+								'sortable_forrst',
+								'sortable_reddit',
+								'sortable_steam',
+								'sortable_lastfm',
+								'sortable_twitter',
+								'sortable_facebook',
+								'sortable_linkedin'
+							);
+						} else {
+							// For some reason saving an array in to options.php doesn't return an array. 
+							// Let's make it an array
+							$iconOrder = explode(",",$options['social_icon_order']);
+						}
+						
+						foreach ($iconOrder as $icon) {
+							include("options/".$icon).".php";
+						}
+					?>
+				</tbody>
 
 				<tr>
 					<th scope="heading" colspan="2"><h2 style="border-bottom: 1px solid #ddd;">Social Data</h2></th>

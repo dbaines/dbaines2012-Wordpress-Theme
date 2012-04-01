@@ -1,0 +1,17 @@
+/* ==================================
+
+Custom buttons
+/functions/functions.tinymce.php
+
+================================== */
+#content_download .mceIcon {background: url("download.png") center no-repeat;}
+#content_demodownload .mceIcon {background: url("preview.png") center no-repeat;}
+#content_dividers .mceIcon {background: url("dividers.png") center no-repeat;}
+#content_message .mceIcon {background: url("info.png") center no-repeat;}
+#content_highlight .mceIcon {background: url("brush.png") center no-repeat;}
+#content_code .mceIcon {background: url("pencil.png") center no-repeat;}
+#content_codebox .mceIcon {background: url("clipboard.png") center no-repeat;}
+#content_columns .mceIcon {background: url("columns.png") center no-repeat;}
+#content_floatright .mceIcon {background: url("float_right.png") center no-repeat;}
+#content_subhead .mceIcon {background: url("heading.png") center no-repeat;}
+#content_accordion .mceIcon {background: url("accordion.png") center no-repeat;}

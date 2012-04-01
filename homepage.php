@@ -6,7 +6,7 @@
 get_header(); ?>
 
 <div class="homepageSliderWrapper">
-<ul class="homepageSlider">
+<ul class="homepageSlider slides">
 
     <?php 
 

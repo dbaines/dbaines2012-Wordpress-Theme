@@ -144,13 +144,14 @@ get_header(); ?>
 
 			<div class="entry-meta">
 				Posted on <time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time>
+				<small>(<?php echo human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ago'; ?>)</small>
 			</div><!-- .entry-meta -->
             
             <div class="entry-content">
             	<div class="tutorial-image">
                 	<a href="<?php the_permalink(); ?>" title="Read Tutorial: <?php the_title(); ?>">
 	                	<?php if (has_post_thumbnail()) : // If has post thumbnail ?>
-                			<?php the_post_thumbnail(); ?>
+                			<?php the_post_thumbnail('Post Thumbnail'); ?>
                     	<?php else : // if doesn't have post thumbnail, show default fallback ?>
             		    	<img src="<?php bloginfo('template_url'); ?>/images/tutorial-thumbnail.png" alt="tutorial" />
     		            <?php endif; ?>
@@ -204,6 +205,7 @@ get_header(); ?>
 
 			<div class="entry-meta">
 				Posted on <time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time>
+				<small>(<?php echo human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ago'; ?>)</small>
 			</div><!-- .entry-meta -->
             
             <div class="entry-content">
@@ -259,6 +261,7 @@ get_header(); ?>
 
 			<div class="entry-meta">
 				Posted on <time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time>
+				<small>(<?php echo human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ago'; ?>)</small>
 			</div><!-- .entry-meta -->
 
 			<div class="entry-summary">

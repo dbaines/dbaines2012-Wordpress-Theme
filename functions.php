@@ -51,6 +51,9 @@
 // Custom Post Types
 include('functions/functions.post-types.php');
 
+// Custom Post Type Meta Fields
+include('functions/functions.post-type-fields.php');
+
 // Custom Wordpress Options Page
 include('functions/functions.options.php');
 
@@ -138,11 +141,7 @@ Shows two buttons, demo and download. Both attributes are for URLs to their resp
 
 <div class='dbscLeft'>[col span='' total='']text[/col]</div>
 <div class='dbscRight'><strong>Columns</strong><br />
-Columned Content. Span is how many columns this column takes up and total is how many columns there are total. Usually used in pairs or more.</div>
-
-<div class='dbscLeft'>[scrobbles]</div>
-<div class='dbscRight'><strong>AudioScrobbler</strong><br />
-Uses the AudioScrobbler plugin. If not found will show a message saying so. </div>
+Columned Content. Span is the number of this column and total is how many columns there are total. Usually used in pairs or more.</div>
 
 <div style="clear:both;"></div>
 <?php 
@@ -150,8 +149,105 @@ Uses the AudioScrobbler plugin. If not found will show a message saying so. </di
 
 /***********************************
 *
+* ADD POST THUMBNAILS TO POST LISTINGS
+* db2012
+* 
+* http://wordpress.stackexchange.com/questions/1567/best-collection-of-code-for-your-functions-php-file/6021#6021
+*
+***********************************/
+if ( !function_exists('AddThumbColumn') && function_exists('add_theme_support') ) {
+
+    // for post and page
+    add_theme_support('post-thumbnails', array( 'post', 'page' ) );
+
+    function AddThumbColumn($cols) {
+
+        $cols['thumbnail'] = __('Thumbnail');
+
+        return $cols;
+    }
+
+    function AddThumbValue($column_name, $post_id) {
+
+            $width = (int) 35;
+            $height = (int) 35;
+
+            if ( 'thumbnail' == $column_name ) {
+                // thumbnail of WP 2.9
+                $thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
+                // image from gallery
+                $attachments = get_children( array('post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image') );
+                if ($thumbnail_id)
+                    $thumb = wp_get_attachment_image( $thumbnail_id, array($width, $height), true );
+                elseif ($attachments) {
+                    foreach ( $attachments as $attachment_id => $attachment ) {
+                        $thumb = wp_get_attachment_image( $attachment_id, array($width, $height), true );
+                    }
+                }
+                    if ( isset($thumb) && $thumb ) {
+                        echo $thumb;
+                    } else {
+                        echo __('None');
+                    }
+            }
+    }
+
+    // for posts
+    add_filter( 'manage_posts_columns', 'AddThumbColumn' );
+    add_action( 'manage_posts_custom_column', 'AddThumbValue', 10, 2 );
+
+    // for pages
+    add_filter( 'manage_pages_columns', 'AddThumbColumn' );
+    add_action( 'manage_pages_custom_column', 'AddThumbValue', 10, 2 );
+}
+
+/***********************************
+*
+* ADD CUSTOM POST TYPES TO THE 'RIGHT NOW' DASHBOARD WIDGET
+* db2012
+* 
+* http://wordpress.stackexchange.com/questions/1567/best-collection-of-code-for-your-functions-php-file/6021#7834
+*
+***********************************/
+function wph_right_now_content_table_end() {
+ $args = array(
+  'public' => true ,
+  '_builtin' => false
+ );
+ $output = 'object';
+ $operator = 'and';
+
+ $post_types = get_post_types( $args , $output , $operator );
+ foreach( $post_types as $post_type ) {
+  $num_posts = wp_count_posts( $post_type->name );
+  $num = number_format_i18n( $num_posts->publish );
+  $text = _n( $post_type->labels->singular_name, $post_type->labels->name , intval( $num_posts->publish ) );
+  if ( current_user_can( 'edit_posts' ) ) {
+   $num = "<a href='edit.php?post_type=$post_type->name'>$num</a>";
+   $text = "<a href='edit.php?post_type=$post_type->name'>$text</a>";
+  }
+  echo '<tr><td class="first b b-' . $post_type->name . '">' . $num . '</td>';
+  echo '<td class="t ' . $post_type->name . '">' . $text . '</td></tr>';
+ }
+ $taxonomies = get_taxonomies( $args , $output , $operator ); 
+ foreach( $taxonomies as $taxonomy ) {
+  $num_terms  = wp_count_terms( $taxonomy->name );
+  $num = number_format_i18n( $num_terms );
+  $text = _n( $taxonomy->labels->singular_name, $taxonomy->labels->name , intval( $num_terms ));
+  if ( current_user_can( 'manage_categories' ) ) {
+   $num = "<a href='edit-tags.php?taxonomy=$taxonomy->name'>$num</a>";
+   $text = "<a href='edit-tags.php?taxonomy=$taxonomy->name'>$text</a>";
+  }
+  echo '<tr><td class="first b b-' . $taxonomy->name . '">' . $num . '</td>';
+  echo '<td class="t ' . $taxonomy->name . '">' . $text . '</td></tr>';
+ }
+}
+add_action( 'right_now_content_table_end' , 'wph_right_now_content_table_end' );
+
+/***********************************
+*
 * VARIOUS FIXES
-* db2011
+* db2012
 *
 ***********************************/
 // Removes <p> tags around the category descriptions
@@ -161,6 +257,16 @@ remove_filter('term_description','wpautop');
 // http://www.456bereastreet.com/archive/201103/controlling_and_customising_rss_feeds_in_wordpress/
 remove_action('wp_head', 'feed_links', 2);
 remove_action('wp_head', 'feed_links_extra', 3);
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'index_rel_link');
+remove_action('wp_head', 'wp_generator');
+
+// Adding Custom Image Sizes
+add_image_size( 'Large Slider', 960, 380, true ); 
+add_image_size( 'Small Slider', 630, 380, true ); 
+add_image_size( 'Gallery Thumbnail', 295, 160, true ); 
+add_image_size( 'Post Thumbnail', 318, 221, true ); 
 
 /*************************************************
 * Comment Buttons
@@ -203,11 +309,44 @@ function getCustomField($theField) {
 
 /***********************************
 *
-* WP OPTIONS FRAMEWORK
-* http://wptheming.com/options-framework-theme/
+* WIDGETS
+* db2012
 *
 ***********************************/
-//include('functions/options.framework.php');
+register_sidebar( array(
+  'name' => __( 'blog-column-1', 'dbWidget' ),
+  'id' => 'blog-column-1',
+  'description' => __( 'Blog Column 1', 'dbWidget' ),
+  'before_widget' => '',
+  'after_widget' => '',
+  'before_title' => '<h2 class="widget-title">',
+  'after_title' => '</h2>',
+) );
+register_sidebar( array(
+  'name' => __( 'blog-column-2', 'dbWidget' ),
+  'id' => 'blog-column-2',
+  'description' => __( 'Blog Column 2', 'dbWidget' ),
+  'before_widget' => '',
+  'after_widget' => '',
+  'before_title' => '<h2 class="widget-title">',
+  'after_title' => '</h2>',
+) );
+register_sidebar( array(
+  'name' => __( 'blog-column-3', 'dbWidget' ),
+  'id' => 'blog-column-3',
+  'description' => __( 'Blog Column 3', 'dbWidget' ),
+  'before_widget' => '',
+  'after_widget' => '',
+  'before_title' => '<h2 class="widget-title">',
+  'after_title' => '</h2>',
+) );
+
+/***********************************
+*
+* TINYMCE EXTENSIONS
+*
+***********************************/
+include('functions/functions.tinymce.php');
 
 /***********************************
 *

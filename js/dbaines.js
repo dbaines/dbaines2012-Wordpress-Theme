@@ -256,70 +256,24 @@ function colorboxTargets() {
 colorboxTargets();
 
 /* ------------------------------------------------------------------------------
-	SUDO SLIDERS
+	CONTENT SLIDERS
 ------------------------------------------------------------------------------ */
-
-
-// Initiate Sudo Slider on it
-$(".homepageSliderWrapper").sudoSlider({
-	prevHtml: '<span id="largePrev"><a href="#" class="prevBtn"> previous </a></span>',
-	nextHtml: '<span id="largeNext"><a href="#" class="nextBtn"> next </a></span>',
-	controlsFade: false,
-	numeric: true,
-	continuous: false,
-	autowidth: false,
-	numericAttr: 'class="sliderControls"',
-	updateBefore: true,
-	insertAfter: true,
-	speed: 400
+$(".homepageSliderWrapper").flexslider({
+	animation: "slide",
+	animationDuration: 300,
+	controlsContainer: ".bodyWrapper",
+	slideshow: false
 });
 
-$(".websiteSliderContainer").sudoSlider({
-	prevHtml: '<span id="smallPrev"><a href="#" class="prevBtn"> previous </a></span>',
-	nextHtml: '<span id="smallNext"><a href="#" class="nextBtn"> next </a></span>',
-	numeric: true,
-	controlsShow: true,
-	controlsFade: false,
-	continuous: false,
-	autowidth: false,
-	updateBefore: true,
-	prevNext: false,
-	keyboardNav: false,
-	speed: 200
+$(".websiteSliderContainer").flexslider({
+	animation: "slide",
+	pauseOnHover: true,
+	animationDuration: 200,
+	animationLoop: false,
+	slideshow: false,
+	directionNav: false
 });
 
-/* ------------------------------------------------------------------------------
-	LARGE ARROWS
------------------------------------------------------------------------------- */
-// EasySlider
-$("#largeNext a").hover(function() {
-	$(this).stop();
-	$(this).animate({"right": "-80px", "width": "80px"},200);
-}, function() {
-	$(this).stop();
-	$(this).animate({"right": "-60px", "width": "60px"});
-});
-$("#largePrev a").hover(function() {
-	$(this).stop();
-	$(this).animate({"left": "-80px", "width": "80px"},200);
-}, function() {
-	$(this).stop();
-	$(this).animate({"left": "-60px", "width": "60px"});
-});
-
-// Colorbox
-$("#cboxNext").hover(function() {
-	$(this).animate({"right": "-80px", "width": "80px"},200);
-}, function() {
-	$(this).stop();
-	$(this).animate({"right": "-60px", "width": "60px"});
-});
-$("#cboxPrevious").hover(function() {
-	$(this).animate({"left": "-80px", "width": "80px"},200);
-}, function() {
-	$(this).stop();
-	$(this).animate({"left": "-60px", "width": "60px"});
-});
 
 /* ------------------------------------------------------------------------------
 	SOCIAL LINKS / RSS FEEDS / ICONS
